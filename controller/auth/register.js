@@ -8,7 +8,7 @@ const findUser = async ({ email }) => {
 
 const register = async (req, res) => {
   try {
-    const { name, email, answer, password } = req.body || {};
+    const { name, email, answer, password, isAdmin } = req.body || {};
 
     if (!name) {
       throw throwError("Name is required", 404);
@@ -37,6 +37,7 @@ const register = async (req, res) => {
       email: email.toLowerCase(),
       answer: answer.toLowerCase(),
       password: hashedPassword,
+      isAdmin,
     });
     if (user) {
       return res.status(201).send({
